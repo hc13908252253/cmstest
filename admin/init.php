@@ -1,0 +1,24 @@
+<?php
+//后台相关常量
+define('APP_DEBUG',true);//调试开关
+define('COMMON_PATH','../common/');//公共文件目录
+define('UPLOAD_PATH','../uploads/');//上传文件目录
+//载入函数库
+require(COMMON_PATH.'function.php');
+//启动session
+session_start();
+if(!isset($_SESSION['cms'])){
+    $_SESSION=['cms'=>[]];
+}
+//检查用户登录
+if(!defined('NO_CHEC_LOGIN')){
+    if(!isset($_SESSION['cms'])){
+        $user=$_SESSION['cms']['admin'];//用户忆登录，取出用户信息
+    }else{
+        redirect('login.php');//用户未登录 ，跳转到登录页面
+    }
+}
+//装入数据库函数
+require(COMMON_PATH.'db.php');
+//装入模块
+?>
